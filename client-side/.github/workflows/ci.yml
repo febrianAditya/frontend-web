@@ -1,0 +1,33 @@
+name: REACT-CICD
+# Nama untuk workflow
+
+on:
+  push:
+    branches:
+      - main
+# Menentukan kapan 'workflow' harus dijalankan.
+# Dalam kasus ini 'workflow' akan terpicu pada saat push ke branch master.
+
+# Daftar pekerjaan yang harus dikerjakan
+jobs:
+  build:
+    runs-on: macos-latest
+    # Menentukan OS yang digunakan untuk menjalankan 'jobs'
+
+    # Langkah-langka yang akan dikerjakan
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build and Test
+        run: |
+          npm run build
+          npm run test
